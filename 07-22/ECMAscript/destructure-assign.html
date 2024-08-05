@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=<device-width>, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>비구조화 할당문법-객체/배열</h1>
+    <script>
+        const books = ['React','Vue','Angular','Svelt','Jquery'];
+
+        var book1 = books[0];
+        var book2 = books[1];
+        var book3 = books[2];
+
+        console.log('구조화된 방식의 배열값 추출 및 변수할당',book1,book2,book3);
+
+        let [book01,book02,book03] = books;
+        console.log('비구조화된 방식의 배열값 추출 및 변수할당 첫번째 방법 : ',book01,book02,book03);
+
+        let [book001,...extraTech]=books;
+        console.log('비구조화된 방식의 배열값 추출 및 변수할당 두번째 방법 : ',book001,extraTech);
+        let [tech1,tech2,tech3,tech4,tech5,tech6='unknown']=books;
+        console.log('비구조화된 방식의 배열값 추출 및 변수할당 두번째 방법 : ',tech1,tech2,tech3,tech4,tech5,tech6);
+
+
+        const techTrend = {
+            front :'React-Next.js',
+            backend : 'Node Nest.js',
+            server : 'Linux-Ubuntu',
+            rdbms : 'PostgreSQL',
+            nosql : 'MongoDB',
+            infra : 'Cloud-AWS',
+            getAuthor:function(){
+                return '강창훈';
+            }
+        }
+
+        let frontTech = techTrend.front;
+        let backTech = techTrend.backend;
+        let serverTech = techTrend.server;
+        console.log(frontTech,backTech,serverTech);
+
+        //객체의 비구조화 할당방식 사용하기
+
+        const {front,backend, server,infra, getAuthor} = techTrend;
+
+        console.log(front,backend, server, infra,getAuthor());
+
+
+    </script>
+</body>
+</html>

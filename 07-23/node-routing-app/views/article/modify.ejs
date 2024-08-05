@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>게시글 확인 웹페이지</title>
+</head>
+<body>
+    <h1>게시글 확인 및 수정/삭제 웹페이지</h1>
+    <form method="post" action="/article/modify/<%=article.article_id%>">
+        제목 : <br>
+        <input name="title" type="text" id="title" value="<%=article.title %>"/><br>
+        내용 : <br>
+        <textarea id="contents" name = "contents" style="height: 500px;"><%=article.contents %></textarea><br>
+        게시여부 : <br>
+        <select id="display" name="display">
+            <option value="9">선택</option>
+            <option vaule="1">게시함</option>
+            <option value="0">게시안함</option>
+        </select>
+        <br>
+
+        <input type="submit" value="수정"/>
+        <input type="button" value="삭제"/>
+        <input type="button" value="목록"/>
+        
+    </form>
+</body>
+</html>

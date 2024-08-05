@@ -1,0 +1,170 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<!-- Required meta tags -->
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+		<!-- Meta -->
+		<meta name="description" content="Quick Chat App">
+		<meta name="author" content="ParkerThemes">
+		<link rel="shortcut icon" href="img/fav.png" />
+
+		<!-- Title -->
+		<title>Quick Chat App</title>
+
+
+		<!-- *************
+			************ Common Css Files *************
+		************ -->
+		<!-- Bootstrap css -->
+		<link rel="stylesheet" href="css/bootstrap.min.css">
+		
+		<!-- Main css -->
+		<link rel="stylesheet" href="css/main.css">
+
+
+		<!-- *************
+			************ Vendor Css Files *************
+		************ -->
+
+	</head>
+	<body class="authentication">
+
+		<!-- *************
+			************ Login container start *************
+		************* -->
+		<div class="login-container">
+			
+			<!-- Row start -->
+			<div class="row no-gutters h-100">
+				<div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12">
+					<div class="login-about">
+						<div class="slogan">
+							<span>Design</span>
+							<span>Made</span>
+							<span>Simple.</span>
+						</div>
+						<div class="about-desc">
+							Quick Chat is an intelligent and communications tool, built for teams. It provides an integrated platform that makes team communication easy and efficient.
+						</div>
+						<a href="index.html" class="know-more">Know More <img src="img/right-arrow.svg"></a>
+
+					</div>
+				</div>
+				<div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12">
+					<div class="login-wrapper">
+
+						<!-- 회원가입 입력 폼영역 -->
+						<form id="entryForm" >
+							<div class="login-screen">
+								<div class="login-body">
+									<a href="index.html" class="login-logo">
+										<img src="img/logo.svg" alt="Quick Chat">
+									</a>
+									<h6>환영합니다. 퀵 채팅 앱에 어서오세요,<br>신규 계정 만들기</h6>
+									<div class="field-wrapper">
+										<input id="email" type="email" autofocus>
+										<div class="field-placeholder">이메일</div>
+									</div>
+									<div class="field-wrapper">
+										<input id="pwd" type="password">
+										<div class="field-placeholder">비밀번호</div>
+									</div>
+									<div class="field-wrapper mb-3">
+										<input id="pwd_check" type="password">
+										<div class="field-placeholder">비밀번호 재확인</div>
+									</div>
+									<div class="field-wrapper mb-3">
+										<input id="name" type="text">
+										<div class="field-placeholder">닉네임</div>
+									</div>
+									<div class="actions">
+										<button type="submit" class="btn btn-primary ml-auto">회원가입</button>
+									</div>
+								</div>
+								<div class="login-footer">
+									<span class="additional-link">이미 계정이 있나요? <a href="login.html" class="btn btn-secondary">로그인</a></span>
+								</div>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+			<!-- Row end -->
+
+		</div>
+		<!-- *************
+			************ Login container end *************
+		************* -->
+
+		<!-- JQuery 라이브러리 참조하기 -->
+		<script src="js/jquery.min.js"></script>
+
+		<!-- 유효성검사 알고리즘 -->
+		<script>
+			//entryForm에서 onSubmit이벤트가 발생하면 처리할 업무로직 구현
+			$("#entryForm").submit((e)=>{
+
+				//onSubmit 이벤트 발생을 취소해서 화면 껌벅거림을 사전에 방지한다.
+				e.preventDefault();
+
+
+				//스텝1: 사용자 입력값의 유효성을 검증한다.
+				if($("#email").val()==""){
+					alert("이메일 주소를 입력해주세요.");
+					$("#email").focus();
+					return false;
+				}
+				if($("#pwd").val() ==""){
+					alert("비밀번호를 입력해주세요.");
+					$("#pwd").focus();
+					return false;
+				}
+				if($("#pwd_check").val()==""){
+					alert("비밀번호 재확인을 입력해주세요.");
+					$("#pwd_check").focus();
+					return false;
+				}
+				if($("#pwd_check").val()!=$("#pwd").val()){
+					alert("비밀번호 재확인이 일치하지 않습니다.");
+					$("#pwd_check").val("");
+					$("#pwd_check").focus();
+					return false;
+				}
+				if($("#name").val()==""){
+					alert("닉네임을 입력해주세요.");
+					$("#name").focus();
+					return false;
+				}
+				//스텝2: 사용자 입력값을 UI요소에서 추출해서 JSON 데이터를 생성
+
+				var member = {
+					email : $("#email").val(),
+					pwd : $("#pwd").val(),
+					name : $("#name").val()
+				}
+				//스텝3: UI요소에서 추출한 JSON데이터를 백엔드 RESTFul API에 전달해서 회원가입 처리합니다.
+				//    JQuery의 AJAX를 이용해 POST방식으로 백엔드 API 주소에 데이터를 전달한다.
+				$.post('http://localhost:5000/api/member/entry',member).done((result)=>{
+					//벡엔드에서의 처리 결과값 확인하기
+
+					console.log("벡엔드에서의 처리 결과값 확인 : ",result)
+
+					if(result.code == 200){
+						location.href="./login.html"
+
+					}else{
+						alert("회원가입에 실패했습니다. \n 관리자에게 문의하세요.");
+					}
+				});
+				//스텝4: 백엔드 데이터 처리결과에 따른 추가 정보를 사용자에게 전달한다.
+
+
+
+			});
+
+
+		</script>
+	</body>
+</html>
